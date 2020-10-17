@@ -5,31 +5,31 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-	public int maxHealth = 100;
-	public int currentHealth;
+	public int maxMagic = 100;
+	public int currentMagic;
 
-	public HealthBar healthBar;
+	public MagicBar magicBar;
 
     // Start is called before the first frame update
     void Start()
     {
-		currentHealth = maxHealth;
-		healthBar.SetMaxHealth(maxHealth);
+		currentMagic = maxMagic;
+		magicBar.SetMaxMagic(maxMagic);
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.E))
 		{
-			TakeDamage(20);
+			LoseMagic(20);
 		}
     }
 
-	void TakeDamage(int damage)
+	void LoseMagic(int loss)
 	{
-		currentHealth -= damage;
+		currentMagic -= loss;
 
-		healthBar.SetHealth(currentHealth);
+		magicBar.SetMagic(currentMagic);
 	}
 }
