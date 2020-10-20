@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FoV : MonoBehaviour
@@ -43,34 +44,40 @@ public class FoV : MonoBehaviour
 
     }
 
-    public bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
+    public static bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
     {
+        //create an array for tracking overlaps with 10 elements
         Collider2D[] overlaps = new Collider2D[10];
-        int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
+        int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps); //it don't think anything is in the array, but it should
 
-        for (int i = 0; i < count + 1; i++)
+        for (int i = 0; i < count + 1; i++) //this one good
         {
-            if (overlaps[i] != null)
+            if (overlaps[i] != null) //this one bad
             {
-                if(overlaps[i].transform == target)
+                Debug.Log("I need you sweaty");
+                if (overlaps[i].transform == target)
                 {
-                    Vector3 directionBetween = (target.position - checkingObject.position).normalized;
-                    directionBetween.z *= 0;
+                    //Vector3 directionBetween = (target.position - checkingObject.position).normalized;
+                    //directionBetween.z *= 0;
 
-                    float angle = Vector2.Angle(checkingObject.up, directionBetween);
+                    //float angle = Vector2.Angle(checkingObject.up, directionBetween);
 
-                    if (angle <= maxAngle)
-                    {
-                        RaycastHit2D hit = new RaycastHit2D();
-                        if (hit.transform == target)
-                        {
-                            return true;
-                        }
-                    }
+                    //if (angle <= maxAngle)
+                    //{
+                    //    RaycastHit2D hit = new RaycastHit2D();
+                    //    if (hit.transform == target)
+                    //    {
+                    //        return true;
+                    //    }
+                    //}
+                    Debug.Log("Hey bitch");
+                    return true;
                 }
+                Debug.Log("Bitch?"); //doesn't show up
             }
+            Debug.Log(overlaps[i]);
         }
-
+        //Debug.Log("Do you really really really wanna go hard");
         return false;
     }
 
