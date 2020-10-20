@@ -34,6 +34,7 @@ public class FoV : MonoBehaviour
         }
         else
         {
+            //green if player is in radius and angle
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
         }
@@ -48,34 +49,32 @@ public class FoV : MonoBehaviour
     {
         //create an array for tracking overlaps with 10 elements
         Collider2D[] overlaps = new Collider2D[10];
-        int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps); //it don't think anything is in the array, but it should
+        int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
 
-        for (int i = 0; i < count + 1; i++) //this one good
+        for (int i = 0; i < count + 1; i++)
         {
-            if (overlaps[i] != null) //this one bad
+            if (overlaps[i] != null)
             {
-                Debug.Log("I need you sweaty");
                 if (overlaps[i].transform == target)
                 {
-                    //Vector3 directionBetween = (target.position - checkingObject.position).normalized;
+                    //Debug.Log("Princess in radius");
+                    Vector2 directionBetween = (target.position - checkingObject.position).normalized;
                     //directionBetween.z *= 0;
 
-                    //float angle = Vector2.Angle(checkingObject.up, directionBetween);
+                    float angle = Vector2.Angle(checkingObject.up, directionBetween);
 
-                    //if (angle <= maxAngle)
-                    //{
-                    //    RaycastHit2D hit = new RaycastHit2D();
-                    //    if (hit.transform == target)
-                    //    {
-                    //        return true;
-                    //    }
-                    //}
-                    Debug.Log("Hey bitch");
-                    return true;
+                    if (angle <= maxAngle)
+                    {
+                        //Debug.Log("And in the angle o my god");
+                        RaycastHit2D hit = new RaycastHit2D();
+                        //if (hit.transform == target) //here lies the problem
+                        //{
+                        //    return true;
+                        //}
+                        return true;
+                    }
                 }
-                Debug.Log("Bitch?"); //doesn't show up
             }
-            Debug.Log(overlaps[i]);
         }
         //Debug.Log("Do you really really really wanna go hard");
         return false;
