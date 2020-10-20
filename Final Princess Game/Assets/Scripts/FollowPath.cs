@@ -8,22 +8,22 @@ public class FollowPath : MonoBehaviour
 {
     //arraw of waypoints to walk from one to the next one
     [SerializeField]
-    Transform[] waypoints;
+    Transform[] waypoint;
 
     //Walk speed that can be set in Inspector
     [SerializeField]
     private float moveSpeed = 3f;
 
     //Indext of current waypoint from which enemy walks to the next one
-    private int waypointIndex = 0;
+    int waypointIndex = 0;
     void Start()
     {
         //set position of enemy as position of the first waypoint
-        transform.position = waypoints[waypointIndex].transform.position;
+        transform.position = waypoint[waypointIndex].transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -31,16 +31,21 @@ public class FollowPath : MonoBehaviour
     //method to make the enemy walk
     void Move()
     {
+        //Move towards the next waypoint
         transform.position = Vector2.MoveTowards(transform.position,
-                                                 waypoints[waypointIndex].transform.position,
+                                                 waypoint[waypointIndex].transform.position,
                                                  moveSpeed * Time.deltaTime);
-        if(transform.position == waypoints [waypointIndex].transform.position)
+        if(transform.position == waypoint[waypointIndex].transform.position)
         {
+            //This method is never entered so it doesn't register that the current position is the position of the waypoint....
+            //If the position of the waypoint has been reached, increase the index
             waypointIndex += 1;
+            Debug.Log("Hello");
         }
-        if(waypointIndex == waypoints.Length)
+        if(waypointIndex == waypoint.Length)
         {
             waypointIndex = 0;
         }
+        Debug.Log("The amount of waypoints is: " + waypoint.Length);
     }
 }
