@@ -35,17 +35,13 @@ public class FollowPath : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position,
                                                  waypoint[waypointIndex].transform.position,
                                                  moveSpeed * Time.deltaTime);
-        if(transform.position == waypoint[waypointIndex].transform.position)
+        if(Vector2.Distance(transform.position, waypoint[waypointIndex].transform.position) < .01f)
         {
-            //This method is never entered so it doesn't register that the current position is the position of the waypoint....
-            //If the position of the waypoint has been reached, increase the index
             waypointIndex += 1;
-            Debug.Log("Hello");
         }
         if(waypointIndex == waypoint.Length)
         {
             waypointIndex = 0;
         }
-        Debug.Log("The amount of waypoints is: " + waypoint.Length);
     }
 }

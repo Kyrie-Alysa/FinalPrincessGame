@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FoV : MonoBehaviour
@@ -33,6 +34,7 @@ public class FoV : MonoBehaviour
         }
         else
         {
+            //green if player is in radius and angle
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
         }
@@ -43,8 +45,9 @@ public class FoV : MonoBehaviour
 
     }
 
-    public bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
+    public static bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
     {
+        //create an array for tracking overlaps with 10 elements
         Collider2D[] overlaps = new Collider2D[10];
         int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
 
@@ -52,25 +55,28 @@ public class FoV : MonoBehaviour
         {
             if (overlaps[i] != null)
             {
-                if(overlaps[i].transform == target)
+                if (overlaps[i].transform == target)
                 {
-                    Vector3 directionBetween = (target.position - checkingObject.position).normalized;
-                    directionBetween.z *= 0;
+                    //Debug.Log("Princess in radius");
+                    Vector2 directionBetween = (target.position - checkingObject.position).normalized;
+                    //directionBetween.z *= 0;
 
                     float angle = Vector2.Angle(checkingObject.up, directionBetween);
 
                     if (angle <= maxAngle)
                     {
+                        //Debug.Log("And in the angle o my god");
                         RaycastHit2D hit = new RaycastHit2D();
-                        if (hit.transform == target)
-                        {
-                            return true;
-                        }
+                        //if (hit.transform == target) //here lies the problem
+                        //{
+                        //    return true;
+                        //}
+                        return true;
                     }
                 }
             }
         }
-
+        //Debug.Log("Do you really really really wanna go hard");
         return false;
     }
 
