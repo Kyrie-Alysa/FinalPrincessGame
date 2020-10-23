@@ -70,8 +70,9 @@ public class FoV : MonoBehaviour
     public static bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
     {
         //create an array for tracking overlaps with 10 elements
-        Collider2D[] overlaps = new Collider2D[10];
+        Collider2D[] overlaps = new Collider2D[40];
         int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
+        Debug.Log(overlaps.Length);
 
         for (int i = 0; i < count + 1; i++)
         {
