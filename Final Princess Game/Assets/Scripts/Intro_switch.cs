@@ -9,7 +9,7 @@ public class Intro_switch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("DemoLevel");
+            SceneManager.LoadScene("Menu");
         }
     }
 }
