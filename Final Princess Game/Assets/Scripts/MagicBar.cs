@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class MagicBar : MonoBehaviour
 {
 
-    public Slider slider; 
+    public Slider slider;
+    private static int potionAmount;
+
 
     public void SetMaxMagic(int magic)
     {
@@ -19,5 +21,14 @@ public class MagicBar : MonoBehaviour
     {
         slider.value = magic;
     }
+
+    public void Update() {
+        potionAmount = PlayerManager.potionCount;
+        if (potionAmount == 1) 
+        {
+            SetMagic(100);
+        }
+    }
+    
 
 }
