@@ -9,12 +9,34 @@ public class FoV : MonoBehaviour
     public float maxAngle;
     public float maxRadius;
 
+    public Vector3 linVel;
+    private Vector3 prevPos = Vector3.zero;
+    private Quaternion prevRot = Quaternion.identity;
+
     private bool isInFov = false;
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, maxRadius);
+
+        //following if statements are for rotating the fov
+        if (linVel.x < 0) //left
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 90);
+        }
+        if (linVel.y < 0) //down
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 180);
+        }
+        if (linVel.x > 0) //right
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, -90);
+        }
+        if (linVel.y > 0) //up
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
 
         //quaternion is a rotation so when multiplying an angle with it you rotate the vector
         //transform.forward is the axis we revolve around
@@ -48,7 +70,7 @@ public class FoV : MonoBehaviour
     public static bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
     {
         //create an array for tracking overlaps with 10 elements
-        Collider2D[] overlaps = new Collider2D[10];
+        Collider2D[] overlaps = new Collider2D[40];
         int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
 
         for (int i = 0; i < count + 1; i++)
@@ -84,6 +106,10 @@ public class FoV : MonoBehaviour
     private void Update()
     {
         isInFov = inFov(transform, player, maxRadius, maxAngle);
+        linVel = (transform.position - prevPos) / Time.deltaTime;
+        Vector3 angularVel = (transform.rotation.eulerAngles - prevRot.eulerAngles) / Time.deltaTime;
+        prevPos = transform.position;
+        prevRot = transform.rotation;
     }
 
 }
