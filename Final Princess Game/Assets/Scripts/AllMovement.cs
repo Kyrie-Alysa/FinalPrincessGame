@@ -149,7 +149,7 @@ public class AllMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //update for FoV
         linVel = (transform.position - prevPos) / Time.deltaTime;
@@ -163,7 +163,10 @@ public class AllMovement : MonoBehaviour
             {
                 Move();
             }
-            else { isInFov = true; }
+            else
+            {
+                isInFov = true;
+            }
         }
         if(isInFov)
         {
