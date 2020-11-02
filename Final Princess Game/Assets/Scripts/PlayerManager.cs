@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-   public static int keyCount;
-   public static int potionCount;
+    public static int keyCount;
+    public static int potionCount;
 
    public bool PickupItem(GameObject obj)
    {
