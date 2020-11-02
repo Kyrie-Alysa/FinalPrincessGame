@@ -27,6 +27,7 @@ public class PlayerMagic : MonoBehaviour
 				LoseMagic(20);
 			}
 		}
+
     }
 
 	void LoseMagic(int loss)

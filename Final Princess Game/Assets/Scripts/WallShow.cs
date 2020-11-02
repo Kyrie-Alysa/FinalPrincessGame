@@ -18,7 +18,7 @@ public class WallShow : MonoBehaviour
     void Update () {
         keyAmount = PlayerManager.keyCount;
     
-        if (keyAmount == 1) {
+        if (keyAmount == 1 || keyAmount == 2) {
 
             if (isWallOn == true) {
 

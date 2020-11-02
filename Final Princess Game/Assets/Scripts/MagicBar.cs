@@ -25,12 +25,11 @@ public class MagicBar : MonoBehaviour
     public void Update() {
         potionAmount = PlayerManager.potionCount;
         int potionDif = potionAmount - curPotionAmount;
-        if (potionDif == 1) 
+        if (potionDif == 2) 
         {
             SetMagic(100);
             curPotionAmount = 1;
         }
     }
-    
 
 }
