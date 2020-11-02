@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AllMovement : MonoBehaviour
@@ -15,7 +16,6 @@ public class AllMovement : MonoBehaviour
     private Quaternion prevRot = Quaternion.identity;
 
     private bool isInFov = false;
-
 
     //speed for following
     public float speed = 8.5f;
@@ -40,24 +40,6 @@ public class AllMovement : MonoBehaviour
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, maxRadius);
-
-            //following if statements are for rotating the fov
-            if (linVel.x < 0) //left
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, 90);
-            }
-            if (linVel.y < 0) //down
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, 180);
-            }
-            if (linVel.x > 0) //right
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, -90);
-            }
-            if (linVel.y > 0) //up
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
-            }
 
             //quaternion is a rotation so when multiplying an angle with it you rotate the vector
             //transform.forward is the axis we revolve around
@@ -126,13 +108,31 @@ public class AllMovement : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position,
                                                  waypoint[waypointIndex].transform.position,
                                                  moveSpeed * Time.deltaTime);
+
         if (Vector2.Distance(transform.position, waypoint[waypointIndex].transform.position) < .01f)
         {
             waypointIndex += 1;
         }
+
         if (waypointIndex == waypoint.Length)
         {
             waypointIndex = 0;
+        }
+        if (linVel.x < 0) //left
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 90);
+        }
+        if (linVel.y < 0) //down
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 180);
+        }
+        if (linVel.x > 0) //right
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, -90);
+        }
+        if (linVel.y > 0) //up
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
