@@ -20,9 +20,12 @@ public class PlayerMagic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.E))
+		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
-			LoseMagic(20);
+			if(currentMagic >= 1)
+            {
+				LoseMagic(20);
+			}
 		}
     }
 

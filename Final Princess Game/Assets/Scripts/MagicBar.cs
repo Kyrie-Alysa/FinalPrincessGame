@@ -8,7 +8,7 @@ public class MagicBar : MonoBehaviour
 
     public Slider slider;
     private static int potionAmount;
-
+    private int curPotionAmount = 0;
 
     public void SetMaxMagic(int magic)
     {
@@ -24,9 +24,11 @@ public class MagicBar : MonoBehaviour
 
     public void Update() {
         potionAmount = PlayerManager.potionCount;
-        if (potionAmount == 1) 
+        int potionDif = potionAmount - curPotionAmount;
+        if (potionDif == 1) 
         {
             SetMagic(100);
+            curPotionAmount = 1;
         }
     }
     

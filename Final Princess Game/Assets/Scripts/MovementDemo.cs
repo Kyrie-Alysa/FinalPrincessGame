@@ -5,24 +5,54 @@ using UnityEngine;
 
 public class MovementDemo : MonoBehaviour
 {
-    public float movementSpeed = 8f;
+    private Rigidbody2D rb;
+    private Vector3 moveDir;
+    public float charSpeed = 8f;
     public Animator animator;
-    public Rigidbody2D rb;
-    Vector2 movement;
+    private bool isDashButtonDown;
 
-    // Update is called once per frame
+    private void Awake(){rb = GetComponent<Rigidbody2D>();}
+
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-    }
+        float moveX = 0f;
+        float moveY = 0f;
 
-    // FixedUpdate isn't dependent on the framerate, so it updates at a constant rate
-    void FixedUpdate()
+        if (Input.GetKey(KeyCode.W)){
+            moveY = +1f;
+        }
+        if (Input.GetKey(KeyCode.S)){
+            moveY = -1f;
+        }
+        if (Input.GetKey(KeyCode.A)){
+            moveX = -1f;
+        }
+        if (Input.GetKey(KeyCode.D)){
+            moveX = 1f;
+        }
+        moveDir = new Vector3(moveX, moveY).normalized;
+        animator.SetFloat("Horizontal", moveDir.x);
+        animator.SetFloat("Vertical", moveDir.y);
+        animator.SetFloat("Speed", moveDir.sqrMagnitude);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isDashButtonDown = true;
+        }
+    }
+    private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
+        rb.velocity = moveDir * charSpeed;
+        if (isDashButtonDown){
+            float dashAmount = 6f;
+            Vector3 dashPosition = transform.position + moveDir * dashAmount;
+            RaycastHit2D ray = Physics2D.Raycast(transform.position, moveDir, dashAmount);
+            if (ray.collider != null)
+            {
+                dashPosition = ray.point;
+            }
+            rb.MovePosition(transform.position + moveDir * dashAmount);
+            isDashButtonDown = false;
+        }
     }
 }
