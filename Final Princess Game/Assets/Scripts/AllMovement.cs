@@ -28,6 +28,8 @@ public class AllMovement : MonoBehaviour
     //Indext of current waypoint from which enemy walks to the next one
     int waypointIndex = 0;
 
+    public Animation anim;
+
     void Start()
     {
         transform.position = waypoint[waypointIndex].transform.position;
@@ -170,6 +172,7 @@ public class AllMovement : MonoBehaviour
         }
         if(isInFov)
         {
+            anim.Play("Guard1SwordAttack");
             MoveToPlayer();
         }
     }

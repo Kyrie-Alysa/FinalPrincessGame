@@ -11,7 +11,7 @@ public class LoadEndScreen : MonoBehaviour
      }
 
     IEnumerator Wait() {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds((float) 0.5);
         SceneManager.LoadScene("EndScreen"); // loads scene When player enter the trigger collider
     }
 }

@@ -17,11 +17,11 @@ public class GuardAttacks : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
 		{
-			PlayAnimation();
+			PlayAnAnimation();
 		}
     }
 
-    void PlayAnimation(){
+    public void PlayAnAnimation(){
         anim.Play("Guard1SwordAttack");
     }
 }

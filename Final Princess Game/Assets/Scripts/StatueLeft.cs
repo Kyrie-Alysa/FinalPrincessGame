@@ -19,6 +19,7 @@ public class StatueLeft : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 3f;
 
+    public Animation anim;
 
     //Draw Gizmos FoV
     private void OnDrawGizmos()
@@ -109,6 +110,7 @@ public class StatueLeft : MonoBehaviour
         }
         if (isInFov)
         {
+            anim.Play("Guard1SwordAttack");
             MoveToPlayer();
         }
     }

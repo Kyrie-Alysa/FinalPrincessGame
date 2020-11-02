@@ -19,6 +19,8 @@ public class StatueRight : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 3f;
 
+    public Animation anim;
+
     void Start()
     {
         transform.localRotation = Quaternion.Euler(0, 0, 180);
@@ -113,6 +115,7 @@ public class StatueRight : MonoBehaviour
         }
         if (isInFov)
         {
+            anim.Play("Guard1SwordAttack");
             MoveToPlayer();
         }
     }
