@@ -8,6 +8,8 @@ TagManager:
   - Potion
   - Door
   - MagicBar
+  - Sword
+  - PrincessSword
   layers:
   - Default
   - TransparentFX
